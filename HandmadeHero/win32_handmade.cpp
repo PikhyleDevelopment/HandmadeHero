@@ -321,7 +321,7 @@ int CALLBACK WinMain(HINSTANCE Instance,
 						int16_t StickY = Pad->sThumbLY;
 
 						if (AButton) {
-							YOffset += 2;
+							YOffset -= 2;
 							OutputDebugStringA("A Button Pressed");
 						}
 					}
@@ -341,7 +341,7 @@ int CALLBACK WinMain(HINSTANCE Instance,
 				Win32DisplayBufferInWindow(&GlobalBackBuffer, DeviceContext, Dimension.Width, Dimension.Height);
 				ReleaseDC(Window, DeviceContext);
 				++XOffset;
-				
+				YOffset += 2;
 			}
 		}
 		else {
