@@ -259,7 +259,7 @@ int CALLBACK WinMain(HINSTANCE Instance,
 
 	Win32LoadXInput();
 
-	WNDCLASS WindowClass = {};
+	WNDCLASSA WindowClass = {};
 
 	Win32ResizeDIBSection(&GlobalBackBuffer, 1280, 720);
 
@@ -267,13 +267,14 @@ int CALLBACK WinMain(HINSTANCE Instance,
 	WindowClass.lpfnWndProc = Win32MainWindowCallback;
 	WindowClass.hInstance = Instance;
 	// WindowClass.hIcon;
-	WindowClass.lpszClassName = (LPCWSTR)"HandmadeHeroWindowClass";
+	WindowClass.lpszClassName = "HandmadeHeroWindowClass";
 
-	if (RegisterClass(&WindowClass)) {
-		HWND Window = CreateWindowEx(
+	// For some reason, the window title is in a foreign language...
+	if (RegisterClassA(&WindowClass)) {
+		HWND Window = CreateWindowExA(
 			0,
 			WindowClass.lpszClassName,
-			(LPCWSTR)"Handmade Hero",
+			"Handmade Hero",
 			WS_OVERLAPPEDWINDOW | WS_VISIBLE,
 			CW_USEDEFAULT,
 			CW_USEDEFAULT,
