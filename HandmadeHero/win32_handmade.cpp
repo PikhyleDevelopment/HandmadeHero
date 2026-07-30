@@ -320,10 +320,8 @@ int CALLBACK WinMain(HINSTANCE Instance,
 						int16_t StickX = Pad->sThumbLX;
 						int16_t StickY = Pad->sThumbLY;
 
-						if (AButton) {
-							YOffset -= 2;
-							OutputDebugStringA("A Button Pressed");
-						}
+						XOffset += StickX >> 12;
+						YOffset -= StickY >> 12;
 					}
 					else {
 						// The controller is not available
@@ -331,17 +329,17 @@ int CALLBACK WinMain(HINSTANCE Instance,
 				}
 
 				XINPUT_VIBRATION Vibration;
-				Vibration.wLeftMotorSpeed = 60000;
-				Vibration.wRightMotorSpeed = 60000;
-				XInputSetState(0, &Vibration);
+				//Vibration.wLeftMotorSpeed = 60000;
+				//Vibration.wRightMotorSpeed = 60000;
+				//XInputSetState(0, &Vibration);
 
 				Win32RenderWeirdGradient(&GlobalBackBuffer, XOffset, YOffset);
 				HDC DeviceContext = GetDC(Window);
 				win32_window_dimension Dimension = Win32GetWindowDimension(Window);
 				Win32DisplayBufferInWindow(&GlobalBackBuffer, DeviceContext, Dimension.Width, Dimension.Height);
 				ReleaseDC(Window, DeviceContext);
-				++XOffset;
-				YOffset += 2;
+				//++XOffset;
+				//YOffset += 2;
 			}
 		}
 		else {
