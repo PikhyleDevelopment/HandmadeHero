@@ -16,12 +16,12 @@
 ************************/
 
 struct win32_offscreen_buffer {
+	// Pixels are always 32-bits wide, Memory Order: BB GG RR XX
     BITMAPINFO Info;
     void* Memory;
     int Width;
     int Height;
     int Pitch;
-    int BytesPerPixel;
 };
 
 struct win32_window_dimension {
@@ -88,7 +88,7 @@ internal void Win32ResizeDIBSection(win32_offscreen_buffer* Buffer, int Width, i
 
     Buffer->Width = Width;
     Buffer->Height = Height;
-    Buffer->BytesPerPixel = 4;
+    int BytesPerPixel = 4;
 
     /*
      *  When the biHeight field is negative, it tells Windows
@@ -103,14 +103,14 @@ internal void Win32ResizeDIBSection(win32_offscreen_buffer* Buffer, int Width, i
     Buffer->Info.bmiHeader.biBitCount = 32;
     Buffer->Info.bmiHeader.biCompression = BI_RGB;
 
-    int BitmapMemorySize = (Buffer->Width * Buffer->Height) * Buffer->BytesPerPixel;
+    int BitmapMemorySize = (Buffer->Width * Buffer->Height) * BytesPerPixel;
     Buffer->Memory = VirtualAlloc(0, BitmapMemorySize, MEM_COMMIT, PAGE_READWRITE);
 
-    Buffer->Pitch = Width * Buffer->BytesPerPixel;
+    Buffer->Pitch = Width * BytesPerPixel;
 }
 
 /**
- *
+ * @brief This function displays the buffer in the window
  * @param DeviceContext The Device Context
  * @param WindowWidth Width of the window
  * @param WindowHeight Height of the window
