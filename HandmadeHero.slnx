@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="HandmadeHero/HandmadeHero.vcxproj" />
+  <Project Path="HandmadeHero/HandmadeHero.vcxproj" Id="b6f2c9a1-6021-4d56-bd17-7ff3140811ea" />
 </Solution>
